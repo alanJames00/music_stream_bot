@@ -19,7 +19,6 @@ let stdout_to_filter;
 ls.stdout.on('data', (data) => {
 //   console.log(`stdout: ${data}`);
   stdout_to_filter = String(data);
-  printFilteredStdOut();
 })
 
 ls.stderr.on('data', (data) => {
@@ -27,9 +26,11 @@ ls.stderr.on('data', (data) => {
 });
 
 ls.on('close', (code) => {
-  console.log(`child process exited with code ${code}`);
+  console.log(stdout_to_filter);
+  
 });
 
-function printFilteredStdOut(){
-    console.log(stdout_to_filter);
+
+function uploadToOneDrive(){
+  
 }
