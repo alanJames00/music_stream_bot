@@ -38,17 +38,29 @@ function uploadToOneDrive(filename){
   // call the childprocess to spawn a rclone process.
   const rclone_ps = spawn('rclone', ['copy', `./downloads/${filename}`, 'onedrive:streaming_music']);
 
-  ls.stdout.on('data', (data) => {
-      console.log(`stdout: ${data}`);
-      
+  rclone_ps.stdout.on('data', (data1) => {
+    //   console.log(`stdout: ${data}`);
+      stdout_to_filter = String(data1);
     })
     
-    ls.stderr.on('data', (data) => {
-      console.error(`stderr: ${data}`);
+    rclone_ps.stderr.on('data', (data1) => {
+      console.error(`stderr: ${data1}`);
     });
     
-    ls.on('close', (code) => {
-      console.log(`exited with code ${code}`);
+    rclone_ps.on('close', (code) => {
+      
+      // Delete after upload.
+      deleteFile(filename);
     });
+    
 
+
+}
+
+
+function deleteFile(filename){
+
+  const deletePs = spawn('rm', [`./downloads/${filename}`]);
+
+  
 }
