@@ -28,9 +28,27 @@ ls.on('close', (code) => {
   console.log(stdout_to_filter);
   stdout_to_filter = stdout_to_filter.trim();
   console.log(stdout_to_filter.length);
+
+  uploadToOneDrive(stdout_to_filter);
 });
 
 
-function uploadToOneDrive(){
+function uploadToOneDrive(filename){
+
+  // call the childprocess to spawn a rclone process.
+  const rclone_ps = spawn('rclone', ['copy', `./downloads/${filename}`, 'onedrive:streaming_music']);
+
+  ls.stdout.on('data', (data) => {
+      console.log(`stdout: ${data}`);
+      
+    })
+    
+    ls.stderr.on('data', (data) => {
+      console.error(`stderr: ${data}`);
+    });
+    
+    ls.on('close', (code) => {
+      console.log(`exited with code ${code}`);
+    });
 
 }
