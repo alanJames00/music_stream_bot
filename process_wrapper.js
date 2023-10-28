@@ -5,8 +5,6 @@
 import { spawn } from 'node:child_process';
 
 
-
-
 const ytUrl = process.argv[2]
 const downloadFolder = 'downloads';
 const audioQuality = 'best';
@@ -28,7 +26,8 @@ ls.stderr.on('data', (data) => {
 
 ls.on('close', (code) => {
   console.log(stdout_to_filter);
-  
+  stdout_to_filter = stdout_to_filter.trim();
+  console.log(stdout_to_filter.length);
 });
 
 
