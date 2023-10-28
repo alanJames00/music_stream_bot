@@ -2,11 +2,12 @@
 
 // Uses project-only version of youtube-exec npm package
 
-// On Windows Only...
 import { spawn } from 'node:child_process';
 
 
-const ytUrl = 'https://www.youtube.com/watch\?v\=bx3Vy0OmE8k';
+
+
+const ytUrl = process.argv[2]
 const downloadFolder = 'downloads';
 const audioQuality = 'best';
 
@@ -32,5 +33,5 @@ ls.on('close', (code) => {
 
 
 function uploadToOneDrive(){
-  
+
 }
