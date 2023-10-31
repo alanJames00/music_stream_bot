@@ -2,18 +2,20 @@
 
 // Uses project-only version of youtube-exec npm package
 
-import { spawn } from 'node:child_process';
+// import { spawn } from 'node:child_process';
+const child_process = require('child_process');
+
+function process_wrapper(urlVal){
 
 
-const ytUrl = process.argv[2]
+
+const ytUrl = urlVal;
 const downloadFolder = 'downloads';
 const audioQuality = 'best';
 
-const ls = spawn('npx', ['youtube-exec', 'audio', '--url', ytUrl, '--folder' ,downloadFolder, '--quality', audioQuality]);
+const ls = child_process.spawn('npx', ['youtube-exec', 'audio', '--url', ytUrl, '--folder' ,downloadFolder, '--quality', audioQuality]);
 
 let stdout_to_filter; 
-
-
 
 ls.stdout.on('data', (data) => {
 //   console.log(`stdout: ${data}`);
@@ -33,10 +35,26 @@ ls.on('close', (code) => {
 });
 
 
+
+
+
+}
+
+
+
+
+function deleteFile(filename){
+
+  const deletePs = child_process.spawn('rm', [`./downloads/${filename}`]);
+
+  
+}
+
+
 function uploadToOneDrive(filename){
 
   // call the childprocess to spawn a rclone process.
-  const rclone_ps = spawn('rclone', ['copy', `./downloads/${filename}`, 'onedrive:streaming_music']);
+  const rclone_ps = child_process.spawn('rclone', ['copy', `./downloads/${filename}`, 'onedrive:streaming_music']);
 
   rclone_ps.stdout.on('data', (data1) => {
     //   console.log(`stdout: ${data}`);
@@ -58,9 +76,4 @@ function uploadToOneDrive(filename){
 }
 
 
-function deleteFile(filename){
-
-  const deletePs = spawn('rm', [`./downloads/${filename}`]);
-
-  
-}
+module.exports = process_wrapper;
