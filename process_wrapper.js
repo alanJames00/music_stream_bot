@@ -54,7 +54,7 @@ function deleteFile(filename){
 function uploadToOneDrive(filename){
 
   // call the childprocess to spawn a rclone process.
-  const rclone_ps = child_process.spawn('rclone', ['copy', `./downloads/${filename}`, 'onedrive:streaming_music']);
+  const rclone_ps = chil_process.spawn('rclone', ['copy', `./downloads/${filename}`, 'onedrive:streaming_music']);
 
   rclone_ps.stdout.on('data', (data1) => {
     //   console.log(`stdout: ${data}`);
