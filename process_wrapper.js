@@ -7,49 +7,38 @@ const child_process = require('child_process');
 
 function process_wrapper(urlVal){
 
+	const ytUrl = urlVal;
+	const downloadFolder = 'downloads';
+	const audioQuality = 'best';
 
+	const ls = child_process.spawn('npx', ['youtube-exec', 'audio', '--url', ytUrl, '--folder' ,downloadFolder, '--quality', audioQuality]);
 
-const ytUrl = urlVal;
-const downloadFolder = 'downloads';
-const audioQuality = 'best';
+	let stdout_to_filter; 
 
-const ls = child_process.spawn('npx', ['youtube-exec', 'audio', '--url', ytUrl, '--folder' ,downloadFolder, '--quality', audioQuality]);
+	ls.stdout.on('data', (data) => {
+	//   console.log(`stdout: ${data}`);
+	  stdout_to_filter = String(data);
+	})
 
-let stdout_to_filter; 
+	ls.stderr.on('data', (data) => {
+	  console.error(`stderr: ${data}`);
+	});
 
-ls.stdout.on('data', (data) => {
-//   console.log(`stdout: ${data}`);
-  stdout_to_filter = String(data);
-})
+	ls.on('close', (code) => {
+	  console.log(stdout_to_filter);
+	  stdout_to_filter = stdout_to_filter.trim();
+	  console.log(stdout_to_filter.length);
 
-ls.stderr.on('data', (data) => {
-  console.error(`stderr: ${data}`);
-});
-
-ls.on('close', (code) => {
-  console.log(stdout_to_filter);
-  stdout_to_filter = stdout_to_filter.trim();
-  console.log(stdout_to_filter.length);
-
-  uploadToOneDrive(stdout_to_filter);
-});
-
-
-
-
+	  uploadToOneDrive(stdout_to_filter);
+	});
 
 }
-
-
 
 
 function deleteFile(filename){
-
-  const deletePs = child_process.spawn('rm', [`./downloads/${filename}`]);
-
-  
+	
+	const deletePs = child_process.spawn('rm', [`./downloads/${filename}`]);
 }
-
 
 function uploadToOneDrive(filename){
 
