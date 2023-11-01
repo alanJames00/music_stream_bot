@@ -22,9 +22,3 @@ bot.onText(/\ */, (msg) => {
     process_wrapper(msg.text);
     bot.sendMessage(chatId, 'synced with one drive successfully');
 });
-
-
-function handleDownload(ytUrl){
-
-}
-
