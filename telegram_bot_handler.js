@@ -3,7 +3,7 @@ const process_wrapper = require('./process_wrapper');
 
 
 // Replace 'YOUR_BOT_TOKEN' with the API token you received from the BotFather
-const token = '6684428196:AAGT31e8NcqNqa7h0vykgdbJiwwlQumpuVM';
+const token = '';
 
 // Create a new bot instance
 const bot = new TelegramBot(token, { polling: true });
@@ -20,7 +20,7 @@ bot.onText(/\ */, (msg) => {
     console.log(msg.text);
     bot.sendMessage(chatId, 'downloading started');
     process_wrapper(msg.text);
-    bot.sendMessage(chatId, 'synced with one drive successfully:');
+    bot.sendMessage(chatId, 'synced with one drive successfully');
 });
 
 bot.onText(/list/, (msg) => {
