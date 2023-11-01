@@ -9,7 +9,7 @@
 - [Usage](#usage)
 
 **Important Info**: 
-- Never run the npm install or npm update on this project since the project uses a modified versions of some npm packages and the update from original will cause the program to break. Instead only use the node_modules included in the project.
+- Never run the npm install or npm update on this project since the project use modified versions of some npm packages and the update from original will cause the program to break. Instead only use the node_modules included in the project.
 
 ## Introduction
 
