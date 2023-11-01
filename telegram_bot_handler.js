@@ -23,12 +23,6 @@ bot.onText(/\ */, (msg) => {
     bot.sendMessage(chatId, 'synced with one drive successfully');
 });
 
-bot.onText(/list/, (msg) => {
-    const chatId = msg.chat.id;
-    bot.sendMessage(chatId, 'listing')
-})
-
-
 
 function handleDownload(ytUrl){
 
